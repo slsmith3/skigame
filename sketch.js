@@ -89,9 +89,9 @@ let debug = false
 //<><><><><><><><><><><><><><><><><><><><><><><><>//
 
 function preload() {
-  // use filepath "Objects/" to import images
+  
   skier = loadImage("skier.png");
-  tree = loadImage("Objects/TreesForSkiGame.png");
+  tree = loadImage("TreesForSkiGame.png");
   rock = loadImage("rock.png");
 }
 function setup() {
