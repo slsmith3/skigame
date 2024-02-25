@@ -30,9 +30,7 @@ let inAir = false;
 let canvasX = 800;
 let canvasY = 600;
 
-// // Add a variable for jump status
-let isJumping = false;
-let jumpHeight = 0; // Additional variable to track jump height
+
 
 //----------------------------------------//
 
@@ -358,19 +356,9 @@ function moveBumps() {
     }
 
     // ... (collision check with rocks)
-
-    // Adjust the y-position based on jump status
-    if (isJumping) {
-      jumpHeight += 5; // You can adjust the jump height by changing this value
-    } else {
       bumpLocation[i].y -= velocity;
-    }
-
-    // Reset jump status after reaching a certain height
-    if (jumpHeight >= 50) {
-      isJumping = false;
-      jumpHeight = 0;
-    }
+    
+    
 
     // Checks to see if the bump has reached the top
     if (bumpLocation[i].y < -100) {
