@@ -1,2 +1,3 @@
 # skigame
-CS 1004 C24 Group Project
+WPI CS 1004 C24 Group Project
+Created by Anoushka Mehta, Yasmin
