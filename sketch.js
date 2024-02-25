@@ -31,7 +31,6 @@ let canvasX = 800;
 let canvasY = 600;
 
 
-
 //----------------------------------------//
 
 //score 
@@ -87,13 +86,15 @@ let debug = false
 //<><><><><><><><><><><><><><><><><><><><><><><><>//
 
 function preload() {
-  
+  // use filepath "Objects/" to import images
   skier = loadImage("skier.png");
   tree = loadImage("TreesForSkiGame.png");
   rock = loadImage("rock.png");
 }
 function setup() {
-  createCanvas(canvasX, canvasY);
+  
+  var cnv = createCanvas(canvasX, canvasY);
+  cnv.parent("sketchHolder")
 
   //initialized colors for button press
   selectedColor = color(255, 0, 0, 150);
@@ -157,8 +158,11 @@ function keyPressed() {
 
 // button functions
 function makeStartButton() {
+  
   startButton = createButton(startLabel);
-
+  startButton.parent("sketchHolder")
+  
+  
   startButton.size(200, 50);
   startButton.position(width / 2 - startButton.width / 2, height / 2 + 90);
 
@@ -169,7 +173,7 @@ function makeStartButton() {
 }
 function makeEasyButton() {
   easyButton = createButton("Easy");
-
+  easyButton.parent("sketchHolder")
   easyButton.size(60, 30);
   easyButton.position(width / 2 - easyButton.width / 2 - 65, 220);
 
@@ -184,7 +188,7 @@ function makeEasyButton() {
 }
 function makeMediumButton() {
   mediumButton = createButton("Medium");
-
+  mediumButton.parent("sketchHolder")
   mediumButton.size(60, 30);
   mediumButton.position(width / 2 - mediumButton.width / 2, 220);
 
@@ -199,7 +203,7 @@ function makeMediumButton() {
 }
 function makeHardButton() {
   hardButton = createButton("Hard");
-
+  hardButton.parent("sketchHolder")
   hardButton.size(60, 30);
   hardButton.position(width / 2 - hardButton.width / 2 + 65, 220);
 
@@ -356,10 +360,10 @@ function moveBumps() {
     }
 
     // ... (collision check with rocks)
-      bumpLocation[i].y -= velocity;
-    
-    
 
+      bumpLocation[i].y -= velocity;
+  
+    
     // Checks to see if the bump has reached the top
     if (bumpLocation[i].y < -100) {
       bumpLocation.splice(i, 1);
