@@ -6,4 +6,4 @@ Created by Anoushka Mehta, Yasmin Muniz, Sean Smith, Edward Song
 
 
 
-slsmith3.github.io/skigame/
+https://slsmith3.github.io/skigame/
