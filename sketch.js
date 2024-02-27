@@ -5,13 +5,10 @@ let skier;
 let tree;
 let rock;
 
-
-
 //-----------Variables to Adjust-----------//
 
 // horizontal location of skier
 let skierLatitude = 175;
-
 
 // scoring increment
 let scoreIncrement = 0.008;
@@ -30,10 +27,9 @@ let inAir = false;
 let canvasX = 800;
 let canvasY = 600;
 
-
 //----------------------------------------//
 
-//score 
+//score
 let score;
 let highestScore = 0;
 
@@ -81,7 +77,7 @@ let startLabel = "Start";
 let selectedColor;
 let baseColor;
 
-let debug = false
+let debug = false;
 
 //<><><><><><><><><><><><><><><><><><><><><><><><>//
 
@@ -92,9 +88,8 @@ function preload() {
   rock = loadImage("rock.png");
 }
 function setup() {
-  
   var cnv = createCanvas(canvasX, canvasY);
-  cnv.parent("sketchHolder")
+  cnv.parent("sketchHolder");
 
   //initialized colors for button press
   selectedColor = color(255, 0, 0, 150);
@@ -121,48 +116,44 @@ function setup() {
 
   // sets collisons
   yesCollisions = true;
- 
-  
-  print("game created by:")
-  print("Anoushka Mehta, Yasmin Muniz, Sean Smith, Edward Song")
- // print("Yasmin Muniz")
- // print("Sean Smith")
- // print("Edward Song")
-  print("    ")
-  print("Press ` to enable debug tools")
+
+  print("game created by:");
+  print("Anoushka Mehta, Yasmin Muniz, Sean Smith, Edward Song");
+  // print("Yasmin Muniz")
+  // print("Sean Smith")
+  // print("Edward Song")
+  print("    ");
+  print("Press ` to enable debug tools");
 }
 
 //just for debug purposes
 function keyPressed() {
- 
-  if(key === "`"){
-    print("Debug mode Enabled")
-    print("    ")
-    print("Press d to disable collisions")
-    print("Press i to return to intro screen")
-    print('Press z to reset score')
-    debug = !debug
-  }  
-  if (debug){
-  if (key === "d") {
-    // Toggle collisions
-    print("collisions toggled.")
-    yesCollisions = !yesCollisions;
-  }else if(key === "i"){
-    gameState = intro
-} else if(key === "z"){
-  score = 0
-}
-}
+  if (key === "`") {
+    print("Debug mode Enabled");
+    print("    ");
+    print("Press d to disable collisions");
+    print("Press i to return to intro screen");
+    print("Press z to reset score");
+    debug = !debug;
+  }
+  if (debug) {
+    if (key === "d") {
+      // Toggle collisions
+      print("collisions toggled.");
+      yesCollisions = !yesCollisions;
+    } else if (key === "i") {
+      gameState = intro;
+    } else if (key === "z") {
+      score = 0;
+    }
+  }
 }
 
 // button functions
 function makeStartButton() {
-  
   startButton = createButton(startLabel);
-  startButton.parent("sketchHolder")
-  
-  
+  startButton.parent("sketchHolder");
+
   startButton.size(200, 50);
   startButton.position(width / 2 - startButton.width / 2, height / 2 + 90);
 
@@ -173,7 +164,7 @@ function makeStartButton() {
 }
 function makeEasyButton() {
   easyButton = createButton("Easy");
-  easyButton.parent("sketchHolder")
+  easyButton.parent("sketchHolder");
   easyButton.size(60, 30);
   easyButton.position(width / 2 - easyButton.width / 2 - 65, 220);
 
@@ -188,7 +179,7 @@ function makeEasyButton() {
 }
 function makeMediumButton() {
   mediumButton = createButton("Medium");
-  mediumButton.parent("sketchHolder")
+  mediumButton.parent("sketchHolder");
   mediumButton.size(60, 30);
   mediumButton.position(width / 2 - mediumButton.width / 2, 220);
 
@@ -203,7 +194,7 @@ function makeMediumButton() {
 }
 function makeHardButton() {
   hardButton = createButton("Hard");
-  hardButton.parent("sketchHolder")
+  hardButton.parent("sketchHolder");
   hardButton.size(60, 30);
   hardButton.position(width / 2 - hardButton.width / 2 + 65, 220);
 
@@ -228,7 +219,7 @@ function generateTrees() {
   // add a coordinate pair to the array for however many numbers of trees are wanted
   for (let i = 0; i < treeNum; i++) {
     treeLocation.push({
-      x: random(width),
+      x: random(width - tree.width / 2),
       y: random(height, 3 * height),
     });
   }
@@ -258,7 +249,7 @@ function moveTrees() {
 
       // draws a new tree at the bottom
       treeLocation.push({
-        x: random(width),
+        x: random(width - tree.width / 2),
         y: random(height + 2, 3 * height),
       });
     }
@@ -361,9 +352,8 @@ function moveBumps() {
 
     // ... (collision check with rocks)
 
-      bumpLocation[i].y -= velocity;
-  
-    
+    bumpLocation[i].y -= velocity;
+
     // Checks to see if the bump has reached the top
     if (bumpLocation[i].y < -100) {
       bumpLocation.splice(i, 1);
@@ -384,10 +374,16 @@ function moveBumps() {
 function drawSkier() {
   //when skier has not collided with the bump and they are not in the air, have the skier follow the mouseX position
   if (bumpCollision == false && inAir == false) {
-    skiersX = mouseX - skier.width / 2;
+    if (mouseX > 0 && mouseX < width) {
+      skiersX = mouseX - skier.width / 2;
+    } else if (mouseX < 0) {
+      skiersX = 0;
+    } else if (mouseX + skier.width / 2 >= width) {
+      skiersX = width - skier.width;
+    }
     image(skier, skiersX, skierLatitude);
   } else if (bumpCollision == true) {
-    //if the skier has collided with the bump, set the offset value to 40 and set inAir to true as the true is now in the air
+    //if the skier has collided with the bump, set the offset value to 60 and set inAir to true as the true is now in the air
 
     offset = 60;
     inAir = true;
@@ -409,7 +405,7 @@ function drawSkier() {
 // Collisions
 function checkCollision() {
   if (inAir == false) {
-    skierX = mouseX;
+    skierX = skiersX;
   } else if (inAir == true) {
     skierX = mouseX + offset;
   }
@@ -504,11 +500,31 @@ function gameIntroScreen() {
   fill(0);
   textAlign(CENTER, CENTER);
   textSize(40);
-  text("Insert Title Here", width / 2, 100);
+  text("Powder Plunge", width / 2, 100);
 
   textSize(20);
   text("Select Difficulty", width / 2, 200);
-  
+
+  textSize(10);
+  text(
+    "Created by Anoushka Mehta, Yasmin Muniz, Sean Smith, and Edward Song ",
+    width / 2,
+    580
+  );
+  image(tree, 25, 25);
+  image(tree, 100, 300);
+  image(tree, 450, 255);
+  image(tree, 625, 455);
+  image(tree, 240, 395);
+  image(tree, 510, 100);
+  image(tree, 665, 45);
+
+  image(rock, 375, 300);
+  image(rock, 650, 400);
+  image(rock, 150, 550);
+  image(rock, 50, 400);
+  image(rock, 700, 225);
+  image(rock, 225, 205);
 }
 function gameOverScreen() {
   background(255);
@@ -516,11 +532,15 @@ function gameOverScreen() {
   textFont(NORMAL);
   fill(0);
   textAlign(CENTER, CENTER);
-  textSize(40);
+  textSize(50);
   noStroke();
-  text("Game Over", width / 2, height / 2);
+  text("Game Over", width / 2, 100);
+  textSize(20);
+  text("Select Difficulty", width / 2, 200);
   textSize(20);
   text("Final score: " + nf(score, 1, 0), width / 2, height / 2 + 30);
+  //textSize(20);
+  //text("Select Difficulty", width / 2, 200);
   if (score > highestScore) {
     highestScore = score;
   }
@@ -594,9 +614,7 @@ function runGame() {
     easyButton.show();
     mediumButton.show();
     hardButton.show();
-    
-    
-    
+
     score = 0;
   } else if (gameState == gameOver) {
     setDifficulty();
@@ -620,7 +638,6 @@ function runGame() {
     scoreEngine();
 
     // check for collisions
-    checkCollision();
 
     //moves the objects and redraws them when they exit the screen
     moveTrees();
@@ -629,21 +646,18 @@ function runGame() {
 
     //draws the skier
     drawSkier();
-
+    checkCollision();
     fill(0);
     textSize(20);
     noStroke();
     text("score: " + nf(score, 1, 0), 750, 20);
-    if(debug){
-      print("Velocity: " + nf(velocity,1,2))
-      print("tree#: " + numberOfTrees)
-      print("rock#: "+ numberOfRocks)
-      print("bump#: " + numberOfBumps)
-      print("skierX: " + nf(skierX,1,2))
-      
-      
+    if (debug) {
+      print("Velocity: " + nf(velocity, 1, 2));
+      print("tree#: " + numberOfTrees);
+      print("rock#: " + numberOfRocks);
+      print("bump#: " + numberOfBumps);
+      print("skierX: " + nf(skierX, 1, 2));
     }
-    
   }
 }
 
