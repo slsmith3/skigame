@@ -77,7 +77,7 @@ let startLabel = "Start";
 let selectedColor;
 let baseColor;
 
-let debug = false;
+let debug = true;
 
 //<><><><><><><><><><><><><><><><><><><><><><><><>//
 
@@ -128,14 +128,14 @@ function setup() {
 
 //just for debug purposes
 function keyPressed() {
-  if (key === "`") {
-    print("Debug mode Enabled");
-    print("    ");
-    print("Press d to disable collisions");
-    print("Press i to return to intro screen");
-    print("Press z to reset score");
-    debug = !debug;
-  }
+  // if (key === "`") {
+  //   print("Debug mode Enabled");
+  //   print("    ");
+  //   print("Press d to disable collisions");
+  //   print("Press i to return to intro screen");
+  //   print("Press z to reset score");
+  //   debug = !debug;
+  
   if (debug) {
     if (key === "d") {
       // Toggle collisions
@@ -147,7 +147,8 @@ function keyPressed() {
     } else if (key === "z") {
       score = 0;
     }
-  }
+  
+}
 }
 
 // button functions
