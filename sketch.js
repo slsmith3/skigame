@@ -143,6 +143,7 @@ function keyPressed() {
       yesCollisions = !yesCollisions;
     } else if (key === "i") {
       gameState = intro;
+      originalLabel();
     } else if (key === "z") {
       score = 0;
     }
