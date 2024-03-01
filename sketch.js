@@ -213,7 +213,10 @@ function changeLabel() {
   startLabel = "Restart";
   startButton.html(startLabel);
 }
-
+function originalLabel() {
+  startLabel = "Start";
+  startButton.html(startLabel);
+}
 //trees
 function generateTrees() {
   // add a coordinate pair to the array for however many numbers of trees are wanted
@@ -610,10 +613,12 @@ function runGame() {
   if (gameState == intro) {
     gameIntroScreen();
     setDifficulty();
+    originalLabel();
     startButton.show();
     easyButton.show();
     mediumButton.show();
     hardButton.show();
+    
 
     score = 0;
   } else if (gameState == gameOver) {
